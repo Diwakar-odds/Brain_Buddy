@@ -1,0 +1,44 @@
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-dotenv==1.0.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# AI/ML
+torch==2.1.2
+transformers==4.37.0
+diffusers==0.25.0
+avalanche-lib==0.4.0
+numpy==1.26.3
+scipy==1.12.0
+
+# Audio Processing
+librosa==0.10.1
+soundfile==0.12.1
+pydub==0.25.1
+
+# Data Processing
+pandas==2.2.0
+scikit-learn==1.4.0
+mne==1.6.1
+
+# Web Scraping
+beautifulsoup4==4.12.3
+requests==2.31.0
+aiohttp==3.9.1
+
+# NLP
+spacy==3.7.2
+nltk==3.8.1
+
+# Utilities
+python-multipart==0.0.6
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+redis==5.0.1
+celery==5.3.4

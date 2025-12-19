@@ -1,127 +1,187 @@
-# Brain Buddy 🧠
+# Brain Buddy - AI-Powered Neuroplasticity Trainer
 
-A modern brain training application built with React and TypeScript, designed to help users upload, analyze, and train with brain data through interactive exercises and experiments.
+> A neuro-algorithmic symbiosis: Training your brain through adaptive AI, generative content, and neuroscience-based protocols.
 
-## ✨ Features
+## 🧠 Vision
 
-- **📊 Dashboard**: Comprehensive overview of your brain training progress and statistics
-- **📤 Upload**: Upload and manage brain data files for analysis
-- **🎯 Training**: Interactive brain training exercises and activities
-- **💬 Feedback**: Detailed feedback and analysis of your training sessions
-- **🔬 Experiments**: Participate in brain training experiments
-- **📚 Research**: Access research materials and insights
+Brain Buddy is not just another wellness app—it's a **Closed-Loop Neuro-Cybernetic System** that learns from you to teach you. By combining cutting-edge neuroscience with continual learning AI, we create a personalized brain training platform that evolves with your neural patterns.
 
-## 🧠 Research Foundation
+## ✨ Core Features
 
-This application is built on scientific principles of neuroplasticity, brainwave optimization, and cognitive training. For detailed information about the research foundation, technical vision, and development roadmap, see [RESEARCH_FOUNDATION.md](RESEARCH_FOUNDATION.md).
+### 1. MOVERS Morning Ritual
+- **M**editate: AI-generated ambient soundscapes
+- **O**xygenate: Guided breathwork exercises
+- **V**isualize: Personalized mental rehearsal scripts
+- **E**xercise: Adaptive movement suggestions
+- **R**ead: Curated neuroscience insights
+- **S**cribe: Digital journaling with prompts
 
-**Key Concepts:**
-- Brainwave states (Delta, Theta, Alpha, Beta, Gamma)
-- MOVERS morning ritual for optimal brain function
-- Neuroplasticity and habit formation
-- AI-driven personalized training protocols
+### 2. Brainwave Training Studio
+- Target specific brain states (Delta, Theta, Alpha, Beta, Gamma)
+- Generative music with embedded entrainment frequencies
+- Binaural beats & isochronic tones
+- Real-time personalization via RLHF
 
-## 🚀 Technology Stack
+### 3. PFC Gym (Prefrontal Cortex Training)
+- **Procrastination Breaker**: 2-minute state-shift protocols
+- **Habit Rewiring**: Interrupt negative loops
+- **Emotional Regulation**: Strengthen top-down control
 
-- **React 18** - Modern UI library
-- **TypeScript** - Type-safe development
-- **Vite** - Fast build tool and dev server
-- **Tailwind CSS** - Utility-first styling
-- **Lucide React** - Beautiful icon library
+### 4. Mental Rehearsal Lab
+- Guided visualization for skill acquisition
+- Based on Pascual-Leone piano experiment
+- Multisensory, specific, emotionally-engaged scripts
 
-## 📦 Installation
+### 5. Chronotype Optimizer
+- Personalized daily schedule aligned with your biology
+- Optimize deep work, creative work, and rest periods
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Diwakar-odds/Brain_Buddy.git
-cd Brain_Buddy
+## 🔬 Scientific Foundation
+
+### Neuroplasticity
+- **Structural**: AutoProg AI mirrors neurogenesis
+- **Functional**: Generative Replay mirrors memory consolidation
+
+### Dual-Process Brain
+- **Limbic Module**: Fast, emotional processing
+- **PFC Module**: Slow, analytical reasoning
+- Train the "neural seesaw" for better self-regulation
+
+### Brainwave Entrainment
+- Frequency-following effect to modulate brain states
+- Transparent about mixed scientific evidence
+- User-driven experimentation and tracking
+
+## 🤖 AI Architecture
+
+### Continual Learning
+- **OCL-PDS Framework**: Handles Progressive Distribution Shift
+- **Hybrid Approach**: AutoProg (structural) + Generative Replay (functional)
+- **Self-KD**: Self-Knowledge Distillation for efficiency
+
+### Generative Engine
+- **Music**: VAE/GAN for real-time composition
+- **Scripts**: LLM-based visualization generation
+- **Verification**: Hybrid (RLHF + rule-based)
+
+### Personalization
+- **RLHF Loop**: Learn from user feedback
+- **Progressive Adaptation**: Model evolves with user
+- **Confidence Scoring**: Transparent AI capabilities
+
+## 📁 Project Structure
+
+```
+Brain_tech/
+├── backend/                 # Python/FastAPI backend
+│   ├── ai/                 # AI models and training
+│   │   ├── continual_learning/
+│   │   ├── generative/
+│   │   └── cognitive_model/
+│   ├── api/                # REST API endpoints
+│   ├── data/               # Data pipeline and scrapers
+│   └── database/           # Database models and migrations
+├── frontend/               # Next.js/React frontend
+│   ├── components/         # Reusable UI components
+│   ├── modules/            # Feature modules
+│   │   ├── movers/
+│   │   ├── brainwave/
+│   │   ├── pfc_gym/
+│   │   └── mental_rehearsal/
+│   └── pages/              # Next.js pages
+├── docs/                   # Documentation
+│   ├── RESEARCH_FOUNDATION.md
+│   ├── DEEP_RESEARCH_THOUGHTS.md
+│   └── research.txt
+└── tests/                  # Test suites
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+## 🚀 Development Roadmap
 
-3. Create a `.env` file in the root directory with your configuration:
-```env
-# Add your environment variables here
-```
+### Phase 1: MVP (Months 1-3)
+- ✅ Research & planning
+- 🔄 Project structure setup
+- ⏳ MOVERS ritual (pre-scripted)
+- ⏳ Basic brainwave entrainment
+- ⏳ User accounts & feedback
 
-## 🛠️ Development
+### Phase 2: Generative AI (Months 4-6)
+- Music generator (VAE)
+- Visualization script generator
+- Basic RLHF loop
 
-Start the development server:
-```bash
-npm run dev
-```
+### Phase 3: Continual Learning (Months 7-10)
+- OCL-PDS implementation
+- Generative Replay
+- Advanced personalization
 
-The application will be available at `http://localhost:5173`
+### Phase 4: Advanced Modules (Months 11-13)
+- PFC Gym
+- Mental Rehearsal Lab
+- Analytics dashboard
 
-### Available Scripts
+### Phase 5: Scale & Optimize (Month 14+)
+- Mobile app
+- Offline mode
+- Wearable integration
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run typecheck` - Run TypeScript type checking
-- `npm start` - Run dev server with type checking
+## 🛡️ Privacy & Ethics
 
-## 🏗️ Project Structure
+### Privacy by Design
+- On-device processing for sensitive data
+- End-to-end encryption
+- Data minimization
+- Granular consent mechanisms
 
-```
-Brain_Buddy/
-├── src/
-│   ├── components/      # Reusable UI components
-│   │   ├── Auth.tsx
-│   │   ├── Layout.tsx
-│   │   ├── BrainwaveChart.tsx
-│   │   └── StatsCard.tsx
-│   ├── contexts/        # React context providers
-│   │   └── AuthContext.tsx
-│   ├── pages/           # Application pages
-│   │   ├── Dashboard.tsx
-│   │   ├── Upload.tsx
-│   │   ├── Training.tsx
-│   │   ├── Feedback.tsx
-│   │   ├── Experiments.tsx
-│   │   └── Research.tsx
-│   ├── lib/             # Utility libraries
-│   ├── utils/           # Helper functions
-│   ├── App.tsx          # Main application component
-│   ├── main.tsx         # Application entry point
-│   └── index.css        # Global styles
-├── public/              # Static assets
-└── package.json         # Project dependencies
-```
+### Scientific Integrity
+- All claims backed by peer-reviewed research
+- Transparent about limitations
+- No medical claims (wellness tool only)
+- Crisis detection and referral protocols
 
-## 🔒 Authentication
+## 🛠️ Tech Stack
 
-The application includes a built-in authentication system. Users must sign in to access the brain training features.
+### Backend
+- Python 3.11+
+- FastAPI
+- PyTorch / TensorFlow
+- PostgreSQL
+- Redis
 
-## 🎨 UI/UX
+### Frontend
+- Next.js 14+
+- React
+- Tailwind CSS
+- Tone.js (audio)
+- D3.js (visualizations)
 
-The application features a modern, gradient-based design with:
-- Dark theme with blue and slate color scheme
-- Smooth animations and transitions
-- Responsive layout for all screen sizes
-- Intuitive navigation between sections
+### AI/ML
+- Avalanche (continual learning)
+- Hugging Face (transformers, diffusers)
+- MNE-Python (EEG processing)
 
-## 📝 License
+## 📚 Documentation
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **[Research Foundation](./RESEARCH_FOUNDATION.md)**: Comprehensive neuroscience & AI research
+- **[Deep Research Thoughts](./DEEP_RESEARCH_THOUGHTS.md)**: Systematic redefinition & thought streams
+- **[Implementation Plan](../brain/e76deda3-6039-4764-a0d6-c48a3485760a/implementation_plan.md)**: Detailed technical architecture
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+This project is currently in active development. Contributions welcome once MVP is released.
 
-## 👤 Author
+## 📄 License
 
-**Diwakar**
-- GitHub: [@Diwakar-odds](https://github.com/Diwakar-odds)
+[To be determined]
 
-## 🙏 Acknowledgments
+## 🔗 Links
 
-Built with modern web technologies to provide an engaging brain training experience.
+- Documentation: [Coming soon]
+- Research Papers: See RESEARCH_FOUNDATION.md
+- Community: [Coming soon]
 
 ---
 
-**Note**: This is a brain training application. Make sure to configure your environment variables properly before running the application.
+**Status**: 🔄 Active Development - Phase 1 (Project Setup)
+
+**Last Updated**: December 20, 2025
