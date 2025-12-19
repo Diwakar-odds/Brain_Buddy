@@ -11,6 +11,16 @@ A modern brain training application built with React and TypeScript, designed to
 - **🔬 Experiments**: Participate in brain training experiments
 - **📚 Research**: Access research materials and insights
 
+## 🧠 Research Foundation
+
+This application is built on scientific principles of neuroplasticity, brainwave optimization, and cognitive training. For detailed information about the research foundation, technical vision, and development roadmap, see [RESEARCH_FOUNDATION.md](RESEARCH_FOUNDATION.md).
+
+**Key Concepts:**
+- Brainwave states (Delta, Theta, Alpha, Beta, Gamma)
+- MOVERS morning ritual for optimal brain function
+- Neuroplasticity and habit formation
+- AI-driven personalized training protocols
+
 ## 🚀 Technology Stack
 
 - **React 18** - Modern UI library
