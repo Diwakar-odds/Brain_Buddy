@@ -51,10 +51,14 @@ services:
       - key: MODEL_CACHE_DIR
         value: ./models
       
-      # Database - Use free PostgreSQL or SQLite
-      - key: DATABASE_URL
-        value: sqlite:///./brain_buddy.db  # Default to SQLite for free tier
-        # For PostgreSQL, add a database service below and link it
+      # Database - MongoDB Atlas (required)
+      # Get your connection string from MongoDB Atlas:
+      # 1. Create free cluster at https://cloud.mongodb.com
+      # 2. Click "Connect" -> "Connect your application"
+      # 3. Copy connection string and add it here
+      - key: MONGODB_URL
+        value: mongodb+srv://Brain_Buddy_admin:5Df3YoSHLZqTpCOI@brainbuddy.4sck8ko.mongodb.net/?appName=BrainBuddy
+        # ⚠️ IMPORTANT: Replace with your actual MongoDB Atlas connection string!
       
       # Redis - Optional, comment out if not using
       # - key: REDIS_URL
@@ -70,14 +74,8 @@ services:
       - key: PUBMED_API_KEY
         value: ""  # Optional
 
-# Optional: Add PostgreSQL database (free tier available)
-# Uncomment if you want to use PostgreSQL instead of SQLite
-# databases:
-#   - name: brain-buddy-db
-#     databaseName: brain_buddy
-#     user: brain_buddy_user
-#     plan: free
-#     region: oregon
+# NOTE: MongoDB Atlas is used as external database service
+# No need to provision database on Render - just set MONGODB_URL above
 
 # Optional: Add Redis (paid only, comment out for free tier)
 # - type: redis

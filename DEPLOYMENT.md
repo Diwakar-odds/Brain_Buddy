@@ -7,11 +7,67 @@ This guide walks you through deploying the Brain Buddy application with the fron
 - GitHub account with your Brain_tech repository
 - [Netlify account](https://netlify.com) (free)
 - [Render account](https://render.com) (free)
+- [MongoDB Atlas account](https://cloud.mongodb.com) (free) - **Required for database**
 - Your code pushed to GitHub
 
 ---
 
-## 🚀 Part 1: Deploy Backend to Render
+## 🗄️ Part 1: Setup MongoDB Atlas Database
+
+### Step 1: Create MongoDB Atlas Account
+
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+2. Sign up for a free account (no credit card required)
+3. Verify your email address
+
+### Step 2: Create Free Cluster
+
+1. After logging in, click **"Build a Database"**
+2. Choose **"M0 FREE"** tier (512 MB storage, perfect for development)
+3. Select cloud provider and region (choose one closest to you)
+4. Name your cluster (e.g., "BrainBuddyCluster")
+5. Click **"Create"** and wait 3-5 minutes for provisioning
+
+### Step 3: Create Database User
+
+1. Click **"Database Access"** in the left sidebar
+2. Click **"Add New Database User"**
+3. Choose **"Password"** authentication
+4. Enter username (e.g., "brainbuddy_admin")
+5. Click **"Autogenerate Secure Password"** and **SAVE THIS PASSWORD** 
+6. Set privileges to **"Read and write to any database"**
+7. Click **"Add User"**
+
+### Step 4: Configure Network Access
+
+1. Click **"Network Access"** in the left sidebar
+2. Click **"Add IP Address"**
+3. Click **"Allow Access from Anywhere"** (0.0.0.0/0)
+   - ⚠️ This is needed for Render to connect
+   - For production, you can restrict to specific IPs later
+4. Click **"Confirm"**
+
+### Step 5: Get Connection String
+
+1. Go back to **"Database"** in the left sidebar
+2. Click **"Connect"** on your cluster
+3. Choose **"Connect your application"**
+4. Select **"Python"** and version **"3.12 or later"**
+5. Copy the connection string (looks like):
+   ```
+   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+   ```
+6. **Important**: Replace `<username>` and `<password>` with your actual credentials
+7. Add `/brain_buddy` before the `?` to specify database name:
+   ```
+   mongodb+srv://brainbuddy_admin:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/brain_buddy?retryWrites=true&w=majority
+   ```
+
+**Save this connection string** - you'll need it for Render deployment!
+
+---
+
+## 🚀 Part 2: Deploy Backend to Render
 
 ### Step 1: Create Render Web Service
 
@@ -23,21 +79,22 @@ This guide walks you through deploying the Brain Buddy application with the fron
 
 ### Step 2: Configure Environment Variables
 
-The `render.yaml` file includes most settings, but you need to update:
+The `render.yaml` file includes most settings, but you **must** update:
 
 1. In the Render dashboard, go to your service's **Environment** tab
 2. Update the following variables:
+   - **`MONGODB_URL`**: ⚠️ **CRITICAL** - Paste your MongoDB Atlas connection string from Part 1
+     - Example: `mongodb+srv://brainbuddy_admin:YOUR_PASSWORD@cluster0.xxxxx.mongodb.net/brain_buddy?retryWrites=true&w=majority`
    - **`FRONTEND_URL`**: Set to your Netlify URL (you'll get this after deploying frontend)
      - Initially use: `https://your-app-name.netlify.app`
      - Update after Netlify deployment
    - **`SECRET_KEY`**: Auto-generated (leave as is)
-   - **`DATABASE_URL`**: Default is SQLite (good for free tier)
 
 ### Step 3: Deploy
 
 1. Click **"Apply"** to create the service
 2. Render will start building your backend
-3. **Note**: Build may take 5-10 minutes due to ML dependencies
+3. **Note**: Build may take 2-3 minutes (optimized for free tier)
 4. Once deployed, copy your backend URL: `https://your-app-name.onrender.com`
 
 ### Step 4: Test Backend
@@ -55,10 +112,11 @@ You should see:
   "ai_models": "loaded"
 }
 ```
+If you see `"database": "connected"`, your MongoDB Atlas connection is working! ✅
 
 ---
 
-## 🎨 Part 2: Deploy Frontend to Netlify
+## 🎨 Part 3: Deploy Frontend to Netlify
 
 ### Step 1: Create Netlify Site
 
@@ -109,6 +167,15 @@ Netlify will automatically detect settings from `netlify.toml`, but verify:
 
 ### Common Issues
 
+#### ❌ MongoDB Connection Failed
+**Problem**: Backend shows "database": "disconnected" or connection timeout
+
+**Solution**: 
+- Verify `MONGODB_URL` is correct in Render environment variables
+- Check MongoDB Atlas Network Access allows 0.0.0.0/0
+- Ensure database user password is correct (no special characters causing issues)
+- Verify database name is included in connection string: `/brain_buddy?`
+
 #### ❌ CORS Errors
 **Problem**: Frontend can't connect to backend
 
@@ -121,9 +188,9 @@ Netlify will automatically detect settings from `netlify.toml`, but verify:
 **Problem**: Render build times out or fails
 
 **Solution**:
-- Free tier has limited resources
-- Consider reducing ML dependencies in `requirements.txt`
 - Check Render build logs for specific errors
+- Verify `requirements.free-tier.txt` exists and is being used
+- Free tier build should take 2-3 minutes (not 10+)
 
 #### ❌ Backend Sleeps (Free Tier)
 **Problem**: Render free tier services sleep after 15 minutes of inactivity
@@ -150,10 +217,11 @@ Netlify will automatically detect settings from `netlify.toml`, but verify:
 2. Click **"Add custom domain"**
 3. Follow DNS configuration instructions
 
-### PostgreSQL Database (Render)
-1. Uncomment the database section in `render.yaml`
-2. Redeploy the blueprint
-3. Update `DATABASE_URL` environment variable
+### MongoDB Atlas Monitoring
+1. Go to MongoDB Atlas dashboard
+2. View **Metrics** tab for database performance
+3. Set up **Alerts** for connection issues
+4. Enable **Charts** to visualize your data
 
 ### Environment-Specific Builds
 Create different environment variable sets for staging/production in both platforms.
