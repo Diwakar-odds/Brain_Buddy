@@ -12,8 +12,8 @@ from dotenv import load_dotenv
 # Import database functions
 from database.models import init_db, close_db, get_db_status
 
-# Import routers (to be created)
-# from api.routes import users, sessions, movers, brainwave, pfc_gym
+# Import routers
+from api.routes import sessions, knowledge
 
 load_dotenv()
 
@@ -77,9 +77,12 @@ async def health_check():
         "ai_models": "not_loaded"  # TODO: Actual model check
     }
 
-# TODO: Include routers
+# Include API routers
+app.include_router(sessions.router, prefix="/api/sessions", tags=["Training Sessions"])
+app.include_router(knowledge.router, prefix="/api/knowledge", tags=["Brain Knowledge"])
+
+# TODO: Additional routers
 # app.include_router(users.router, prefix="/api/users", tags=["users"])
-# app.include_router(sessions.router, prefix="/api/sessions", tags=["sessions"])
 # app.include_router(movers.router, prefix="/api/movers", tags=["movers"])
 # app.include_router(brainwave.router, prefix="/api/brainwave", tags=["brainwave"])
 # app.include_router(pfc_gym.router, prefix="/api/pfc-gym", tags=["pfc-gym"])

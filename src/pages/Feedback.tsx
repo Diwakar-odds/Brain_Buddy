@@ -37,22 +37,16 @@ export function Feedback() {
     if (!user) return;
 
     try {
-      // Mock sessions - replace with actual API call
-      const sessions = [
-        {
-          id: '1',
-          user_id: user.email,
-          status: 'completed',
-          target_state: 'focus',
-          duration: 600,
-          completed_at: new Date().toISOString(),
-          generated_music: [{ id: 'm1', parameters: {} }],
-        },
-      ];
+      // TODO: Replace with actual API call to backend
+      // const sessions = await fetch(`/api/sessions?user_id=${user.id}&status=completed`).then(r => r.json());
+      // const feedbackData = await fetch(`/api/feedback?user_id=${user.id}`).then(r => r.json());
+      
+      const sessions: any[] = [];
+      const feedbackData: any[] = [];
 
       const sessionsWithFeedback = sessions.map((session) => ({
         ...session,
-        has_feedback: false,
+        has_feedback: feedbackData.some((f: any) => f.session_id === session.id),
       }));
 
       setRecentSessions(sessionsWithFeedback);
@@ -76,19 +70,23 @@ export function Feedback() {
     try {
       const musicId = selectedSession.generated_music?.[0]?.id;
 
-      // Mock feedback submission - replace with actual API call
-      console.log('Feedback submitted:', {
-        user_id: user.email,
-        session_id: selectedSession.id,
-        music_id: musicId,
-        rating,
-        effectiveness,
-        emotion_before: emotionBefore,
-        emotion_after: emotionAfter,
-        focus_level: focusLevel,
-        calmness_level: calmnessLevel,
-        comments,
-      });
+      // TODO: Replace with actual API call to backend
+      // await fetch('/api/feedback', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     user_id: user.email,
+      //     session_id: selectedSession.id,
+      //     music_id: musicId,
+      //     rating,
+      //     effectiveness,
+      //     emotion_before: emotionBefore,
+      //     emotion_after: emotionAfter,
+      //     focus_level: focusLevel,
+      //     calmness_level: calmnessLevel,
+      //     comments,
+      //   })
+      // });
 
       alert('Feedback submitted successfully!');
       resetForm();

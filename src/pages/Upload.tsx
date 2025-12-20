@@ -34,8 +34,9 @@ export function Upload() {
 
   const stopRecording = () => {
     setRecording(false);
-    const mockFile = new File([''], 'recording.wav', { type: 'audio/wav' });
-    setFile(mockFile);
+    // TODO: Process and save the actual recording
+    // const recordedFile = new File([recordedBlob], 'recording.wav', { type: 'audio/wav' });
+    // setFile(recordedFile);
   };
 
   const handleAnalyze = async () => {
@@ -47,56 +48,55 @@ export function Upload() {
     try {
       const duration = Math.random() * 180 + 30;
 
-      // Mock session - replace with actual API call
-      const session = {
-        id: Date.now().toString(),
-        user_id: user.email,
-        session_type: 'upload',
-        target_state: 'focus',
-        duration: Math.floor(duration),
-        status: 'active',
-      };
+      // TODO: Replace with actual API calls to backend
+      // Create session
+      // const session = await fetch('/api/sessions', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     user_id: user.email,
+      //     session_type: 'upload',
+      //     target_state: 'focus',
+      //     duration: Math.floor(duration),
+      //   })
+      // }).then(r => r.json());
 
-      // Mock recording - replace with actual API call
-      const recording = {
-        id: Date.now().toString(),
-        user_id: user.email,
-        session_id: session.id,
-        recording_type: selectedType,
-        duration,
-        sample_rate: 44100,
-        metadata: { filename: file.name },
-      };
+      // Upload recording
+      // const formData = new FormData();
+      // formData.append('file', file);
+      // formData.append('session_id', session.id);
+      // formData.append('recording_type', selectedType);
+      // const recording = await fetch('/api/recordings', {
+      //   method: 'POST',
+      //   body: formData
+      // }).then(r => r.json());
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const audioFeatures = extractAudioFeatures(duration);
 
-      // Mock audio features save
-      console.log('Audio features:', {
-        recording_id: recording.id,
-        tempo: audioFeatures.tempo,
-        key: audioFeatures.key,
-        mode: audioFeatures.mode,
-        energy: audioFeatures.energy,
-        valence: audioFeatures.valence,
-        mfcc: audioFeatures.mfcc,
-        spectral_features: audioFeatures.spectral_features,
-        rhythm_features: audioFeatures.rhythm_features,
-      });
+      // TODO: Save audio features to backend
+      // await fetch('/api/audio-features', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     recording_id: recording.id,
+      //     ...audioFeatures
+      //   })
+      // });
 
       const brainwaves = simulateBrainwaveAnalysis(audioFeatures);
 
-      // Mock brainwave data save
-      console.log('Brainwaves:', {
-        recording_id: recording.id,
-        session_id: session.id,
-        delta: brainwaves.delta,
-        theta: brainwaves.theta,
-        alpha: brainwaves.alpha,
-        beta: brainwaves.beta,
-        gamma: brainwaves.gamma,
-      });
+      // TODO: Save brainwave data to backend
+      // await fetch('/api/eeg-data', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     recording_id: recording.id,
+      //     session_id: session.id,
+      //     ...brainwaves
+      //   })
+      // });
 
       const dominantBand = Object.entries(brainwaves).reduce((a, b) =>
         b[1] > a[1] ? b : a
@@ -112,24 +112,31 @@ export function Upload() {
 
       const predictedEmotion = emotionMap[dominantBand[0]];
 
-      // Mock predictions save
-      console.log('Predictions:', {
-        session_id: session.id,
-        recording_id: recording.id,
-        predicted_state: dominantBand[0],
-        confidence: dominantBand[1],
-        emotion_pred: predictedEmotion,
-        emotion_confidence: 0.75 + Math.random() * 0.2,
-        model_version: 'v1.0',
-        features_used: { audio_features: true, brainwaves: true },
-      });
+      // TODO: Save predictions to backend
+      // await fetch('/api/predictions', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     session_id: session.id,
+      //     recording_id: recording.id,
+      //     predicted_state: dominantBand[0],
+      //     confidence: dominantBand[1],
+      //     emotion_pred: predictedEmotion,
+      //     emotion_confidence: 0.75 + Math.random() * 0.2,
+      //     model_version: 'v1.0',
+      //     features_used: { audio_features: true, brainwaves: true }
+      //   })
+      // });
 
-      // Mock session completion
-      console.log('Session completed:', { 
-        id: session.id, 
-        status: 'completed', 
-        completed_at: new Date().toISOString() 
-      });
+      // TODO: Update session status to completed
+      // await fetch(`/api/sessions/${session.id}`, {
+      //   method: 'PATCH',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     status: 'completed',
+      //     completed_at: new Date().toISOString()
+      //   })
+      // });
 
       setAnalysisResult({
         brainwaves,

@@ -31,31 +31,28 @@ export function Dashboard() {
     if (!user) return;
 
     try {
-      // Mock data - replace with actual API calls to backend when ready
-      const sessions = [
-        { id: '1', duration: 600, started_at: new Date().toISOString() },
-        { id: '2', duration: 900, started_at: new Date(Date.now() - 86400000).toISOString() },
-      ];
+      // TODO: Replace with actual API calls to backend
+      // const sessions = await fetch(`/api/sessions?user_id=${user.id}`).then(r => r.json());
+      // const feedback = await fetch(`/api/feedback?user_id=${user.id}`).then(r => r.json());
+      // const eegData = await fetch(`/api/eeg-data?user_id=${user.id}&limit=10`).then(r => r.json());
       
-      const feedback = [
-        { rating: 4, effectiveness: 0.8 },
-        { rating: 5, effectiveness: 0.9 },
-      ];
-      
-      const eegData = [
-        { delta: 0.2, theta: 0.3, alpha: 0.4, beta: 0.5, gamma: 0.1, timestamp: new Date().toISOString() },
-      ];
+      const sessions: any[] = [];
+      const feedback: any[] = [];
+      const eegData: any[] = [];
 
       const totalDuration = sessions?.reduce((acc, s) => acc + (s.duration || 0), 0) || 0;
       const avgRating = feedback?.length
         ? feedback.reduce((acc, f) => acc + (f.rating || 0), 0) / feedback.length
         : 0;
+      
+      const previousAvgRating = 0; // TODO: Fetch from backend historical data
+      const improvementTrend = avgRating > 0 ? ((avgRating - previousAvgRating) / (previousAvgRating || 1)) * 100 : 0;
 
       setStats({
         totalSessions: sessions?.length || 0,
         totalDuration,
         averageRating: avgRating,
-        improvementTrend: Math.random() * 20 + 5,
+        improvementTrend,
       });
 
       setRecentBrainwaves(eegData || []);

@@ -35,24 +35,43 @@ export function Training() {
       const music = generateAdaptiveMusic(selectedState);
       setMusicParams(music);
 
-      // Mock session - replace with actual API call when backend is ready
+      // TODO: Replace with actual API calls to backend
+      // Create session
+      // const session = await fetch('/api/sessions', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     user_id: user.email,
+      //     session_type: 'training',
+      //     target_state: selectedState,
+      //     metadata: { music_params: music }
+      //   })
+      // }).then(r => r.json());
+
+      // Generate music
+      // const generatedMusic = await fetch('/api/music', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     user_id: user.email,
+      //     session_id: session.id,
+      //     target_state: selectedState,
+      //     parameters: music,
+      //     model_version: 'v1.0'
+      //   })
+      // }).then(r => r.json());
+
+      // For now, use local state until backend is ready
       const session = {
         id: Date.now().toString(),
         user_id: user.email,
         session_type: 'training',
         target_state: selectedState,
         status: 'active',
-        metadata: { music_params: music },
       };
 
       const generatedMusic = {
         id: Date.now().toString(),
-        user_id: user.email,
-        session_id: session.id,
-        target_state: selectedState,
-        duration: 0,
-        parameters: music,
-        model_version: 'v1.0',
       };
 
       setCurrentSession({ ...session, music_id: generatedMusic.id });
@@ -73,29 +92,35 @@ export function Training() {
     setIsPlaying(false);
 
     try {
-      // Mock session update - replace with actual API call when backend is ready
-      console.log('Session completed:', {
-        id: currentSession.id,
-        duration,
-        status: 'completed',
-        completed_at: new Date().toISOString(),
-      });
+      // TODO: Replace with actual API calls to backend
+      // Update session status
+      // await fetch(`/api/sessions/${currentSession.id}`, {
+      //   method: 'PATCH',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     duration,
+      //     status: 'completed',
+      //     completed_at: new Date().toISOString()
+      //   })
+      // });
 
-      console.log('Music updated:', {
-        id: currentSession.music_id,
-        duration,
-      });
+      // Update music duration
+      // await fetch(`/api/music/${currentSession.music_id}`, {
+      //   method: 'PATCH',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ duration })
+      // });
 
       if (realTimeBrainwaves) {
-        // Mock EEG data save - replace with actual API call
-        console.log('EEG data:', {
-          session_id: currentSession.id,
-          delta: realTimeBrainwaves.delta,
-          theta: realTimeBrainwaves.theta,
-          alpha: realTimeBrainwaves.alpha,
-          beta: realTimeBrainwaves.beta,
-          gamma: realTimeBrainwaves.gamma,
-        });
+        // Save EEG data
+        // await fetch('/api/eeg-data', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({
+        //     session_id: currentSession.id,
+        //     ...realTimeBrainwaves
+        //   })
+        // });
       }
 
       setDuration(0);

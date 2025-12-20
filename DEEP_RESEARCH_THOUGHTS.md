@@ -19,6 +19,11 @@
     *   [Module 3: The PFC Gym](#module-3)
     *   [Module 4: The Visualization Engine](#module-4)
 5.  [Part IV: Raw Thought Streams & Conversation Archives](#part-iv-archives)
+6.  [Part V: Implementation Data Repository](#part-v-data)
+7.  [Part VI: The Build Protocol (Roadmap)](#part-vi-roadmap)
+8.  [Part VII: Project Structure & Environment](#part-vii-structure)
+9.  [Part VIII: Ethics, Privacy & Safety Protocols](#part-viii-ethics)
+10. [Epilogue: The Day One Mindset](#epilogue)
 
 ---
 
@@ -208,6 +213,209 @@ The app is a mirror.
 *   The cycle repeats, optimizing both the biological and digital networks simultaneously.
 
 This is **Deep Research**. This is **Systematic Redefinition**.
+
+---
+
+## 6. Part V: Implementation Data Repository <a name="part-v-data"></a>
+
+### 5.1 Audio-Neural Entrainment Data (Binaural Beats)
+*Implementation Note*: For binaural beats to work, stereo separation is mandatory. The "Beat Frequency" is the difference between the Left and Right ear frequencies.
+
+| Target State | Frequency Range | Specific Target (Hz) | Left Ear Carrier (Hz) | Right Ear Carrier (Hz) | Effect |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Delta** | 0.5 - 4 Hz | 2.0 Hz | 200.0 | 202.0 | Deep Sleep, HGH Release |
+| **Theta** | 4 - 8 Hz | 5.5 Hz | 200.0 | 205.5 | Deep Meditation, Hypnagogia |
+| **Alpha** | 8 - 12 Hz | 10.0 Hz | 400.0 | 410.0 | Relaxed Focus, Super-learning |
+| **Beta** | 12 - 30 Hz | 20.0 Hz | 400.0 | 420.0 | High Alertness, Logical Thinking |
+| **Gamma** | 30 - 100 Hz | 40.0 Hz | 400.0 | 440.0 | Binding Problem, "Aha" Moments |
+
+### 5.2 Respiratory Protocols (JSON Schema)
+These objects define the timing for the "Oxygenate" visual pacer.
+
+```json
+[
+  {
+    "id": "box_breathing",
+    "name": "Box Breathing (Navy SEAL)",
+    "purpose": "Cortisol Reduction / Stabilization",
+    "cycle_ms": 16000,
+    "sequence": [
+      {"phase": "inhale", "duration_ms": 4000},
+      {"phase": "hold_full", "duration_ms": 4000},
+      {"phase": "exhale", "duration_ms": 4000},
+      {"phase": "hold_empty", "duration_ms": 4000}
+    ]
+  },
+  {
+    "id": "4_7_8_relax",
+    "name": "4-7-8 Relax",
+    "purpose": "Sleep Induction / Parasympathetic Activation",
+    "cycle_ms": 19000,
+    "sequence": [
+      {"phase": "inhale", "duration_ms": 4000},
+      {"phase": "hold_full", "duration_ms": 7000},
+      {"phase": "exhale", "duration_ms": 8000}
+    ]
+  },
+  {
+    "id": "resonance_6bpm",
+    "name": "Resonance Frequency (Coherent)",
+    "purpose": "HRV Maximization",
+    "cycle_ms": 10000,
+    "sequence": [
+      {"phase": "inhale", "duration_ms": 4000},
+      {"phase": "exhale", "duration_ms": 6000}
+    ]
+  }
+]
+```
+
+### 5.3 Cognitive Training Logic (Dual N-Back)
+*Standard implementation parameters for Working Memory training.*
+
+*   **Stimuli**:
+    *   *Visual*: Square appearing in 1 of 8 grid locations (3x3 grid, center excluded).
+    *   *Auditory*: Letters (C, D, G, K, P, Q, T, V) spoken.
+*   **Timing**:
+    *   *Stimulus Duration*: 500ms
+    *   *Response Window*: 2500ms (Total trial time: 3000ms)
+*   **Block Structure**:
+    *   20 + N trials per block.
+    *   Targets: 6 visual matches, 6 auditory matches per block (approx 30% target rate).
+*   **Adaptive Logic (AutoProg)**:
+    *   *Level Up*: Accuracy > 90% (or < 3 errors).
+    *   *Maintain*: Accuracy 75% - 90%.
+    *   *Level Down*: Accuracy < 75% (or > 5 errors).
+
+### 5.4 Visualization Script Structure (Generative AI Prompting)
+To ensure neuroplasticity, the LLM must generate scripts following this specific arc:
+
+1.  **Induction (0:00 - 1:30)**:
+    *   *Goal*: Lower brainwaves to Alpha/Theta.
+    *   *Keywords*: "Heavy eyelids", "Warmth", "Staircase down", "Safe space".
+2.  **Sensory Anchoring (1:30 - 2:30)**:
+    *   *Goal*: Engage non-visual cortex.
+    *   *Prompt*: "Describe the texture of the object. Describe the temperature of the air. Describe the smell."
+3.  **The Action (2:30 - 4:00)**:
+    *   *Goal*: Motor Cortex activation.
+    *   *Prompt*: "Visualize the perfect execution of [User_Skill]. See it in first-person (associated). Feel the muscle micro-movements."
+4.  **The Emotion (4:00 - 4:30)**:
+    *   *Goal*: Limbic resonance (Dopamine/Serotonin).
+    *   *Prompt*: "Feel the specific emotion of relief and pride after the successful completion."
+5.  **Return (4:30 - 5:00)**:
+    *   *Goal*: Re-alerting (Beta).
+    *   *Keywords*: "Energy rising", "Wiggle toes", "Eyes open".
+
+---
+
+## 7. Part VI: The Build Protocol (Roadmap) <a name="part-vi-roadmap"></a>
+
+### 6.1 The Neuro-Technical Stack
+To support real-time audio generation and continual learning, the stack must be robust.
+
+*   **Frontend (The Interface)**: React Native or Flutter. (Low latency audio required).
+*   **Backend (The Cortex)**: Python (FastAPI). Handles the "Heavy Lifting" of logic.
+*   **AI Engine (The Subconscious)**: PyTorch.
+    *   *Music*: MusicVAE / Riffusion.
+    *   *Text*: Llama-3 (Quantized for edge) or GPT-4 API (Cloud).
+*   **Database (The Memory)**:
+    *   *Structured*: PostgreSQL (User logs, scores).
+    *   *Vector*: Pinecone/Weaviate (Semantic memory of journal entries).
+
+### 6.2 Execution Roadmap (MVP to V1)
+
+**Phase 1: The Static Mirror (Weeks 1-4)**
+*   *Goal*: Build the "MOVERS" tools without adaptive AI.
+*   *Deliverables*:
+    *   Manual "Morning Boot" player (Pre-recorded audio).
+    *   Box Breathing Visualizer (Canvas/SVG).
+    *   Dual N-Back Game (Standard algorithm).
+    *   Journaling Interface.
+
+**Phase 2: The Data Loop (Weeks 5-8)**
+*   *Goal*: Establish the feedback mechanism.
+*   *Deliverables*:
+    *   Database schema for tracking "State" (Mood, HRV, Accuracy).
+    *   Correlation Engine (Simple stats: "You focus better after Box Breathing").
+
+**Phase 3: The Adaptive Engine (Weeks 9-12)**
+*   *Goal*: Turn on the "Brain".
+*   *Deliverables*:
+    *   Integrate Generative Audio (Binaural beats generated on fly).
+    *   Connect LLM for dynamic visualization scripts.
+    *   Implement "Level Up" logic for N-Back based on performance.
+
+---
+
+## 8. Part VII: Project Structure & Environment <a name="part-vii-structure"></a>
+
+### 7.1 Directory Hierarchy
+To maintain separation of concerns between the "Cortex" (Backend) and "Interface" (Frontend).
+
+```text
+Brain_Buddy/
+├── backend/                 # FastAPI (The Cortex)
+│   ├── app/
+│   │   ├── api/             # Endpoints (v1)
+│   │   ├── core/            # Config, Security
+│   │   ├── services/        # Business Logic (Audio, AI)
+│   │   │   ├── audio_engine/ # Binaural Beat Generators
+│   │   │   └── llm_engine/   # Prompt Chains
+│   │   ├── models/          # Pydantic/SQLAlchemy Models
+│   │   └── main.py          # Entry Point
+│   ├── tests/
+│   └── requirements.txt
+├── frontend/                # React Native/Flutter (The Interface)
+│   ├── src/
+│   │   ├── components/      # Visualizers (Breath, N-Back)
+│   │   ├── screens/         # Flows (Morning Boot, Journal)
+│   │   └── services/        # API Connectors
+│   └── package.json
+├── ai_research/             # Jupyter Notebooks (The Lab)
+│   ├── experiments/         # Model training/fine-tuning
+│   └── data/                # Raw datasets
+└── docker-compose.yml       # Orchestration
+```
+
+### 7.2 Key Environment Variables
+*   `OPENAI_API_KEY`: For the LLM (if using cloud).
+*   `DATABASE_URL`: PostgreSQL connection string.
+*   `JWT_SECRET`: For user session security.
+*   `HUGGINGFACE_TOKEN`: For downloading local models (MusicVAE).
+
+---
+
+## 9. Part VIII: Ethics, Privacy & Safety Protocols <a name="part-viii-ethics"></a>
+
+### 8.1 Cognitive Liberty & Data Sovereignty
+Neural data (even indirect proxies like mood logs and reaction times) is the most sensitive data class.
+*   **Local-First Architecture**: Whenever possible, the AI (LLM/Audio) runs on-device (Edge Computing).
+*   **Zero-Knowledge Storage**: Cloud backups must be end-to-end encrypted. The server should not "know" what the user is thinking.
+
+### 8.2 The "Do No Harm" Override (Safety Rails)
+*   **Binaural Limits**: Frequencies must not exceed safe volumes or induce known epileptic triggers (e.g., specific flashing rates in visualizers).
+*   **Psychological Safety**: The LLM prompt chain must have a "Safety Layer" to reject generating scripts that encourage self-harm, extreme anxiety, or dissociation.
+
+### 8.3 Dependency Mitigation
+The paradox of a good brain-training app is that it should eventually make itself obsolete.
+*   **The Graduation Metric**: We track how well the user performs *without* the app.
+*   **Weaning Protocols**: As the user improves, the app reduces guidance (fading cues), forcing the user's internal biology to take over.
+
+---
+
+## 10. Epilogue: The Day One Mindset <a name="epilogue"></a>
+
+We have defined the hardware (Neuroscience).
+We have defined the software (AI Architecture).
+We have defined the application (The Modules).
+We have defined the build plan (The Roadmap).
+
+The "Deep Research" phase is complete. The theory is sound. The architecture is robust.
+Now, the abstraction ends. The compilation begins.
+
+**"The best way to predict the future is to invent it."** - Alan Kay
+
+*Proceed to Phase 1: The Static Mirror.*
 
 ---
 
