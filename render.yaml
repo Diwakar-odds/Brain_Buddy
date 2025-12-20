@@ -24,7 +24,7 @@ services:
     # Environment variables
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11
+        value: 3.11.0
       
       - key: SECRET_KEY
         generateValue: true  # Auto-generate secure key
