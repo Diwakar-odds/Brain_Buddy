@@ -6,21 +6,34 @@ Main FastAPI application entry point
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+import os
+from dotenv import load_dotenv
+
+# Import database functions
+from database.models import init_db, close_db, get_db_status
 
 # Import routers (to be created)
 # from api.routes import users, sessions, movers, brainwave, pfc_gym
+
+load_dotenv()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup and shutdown events"""
     # Startup
     print("🧠 Brain Buddy API starting...")
-    # TODO: Initialize database connection
+    try:
+        await init_db()
+        print("✅ Database initialized")
+    except Exception as e:
+        print(f"❌ Database initialization failed: {e}")
     # TODO: Load pre-trained AI models
+    
     yield
+    
     # Shutdown
     print("🧠 Brain Buddy API shutting down...")
-    # TODO: Close database connections
+    await close_db()
     # TODO: Save model states
 
 app = FastAPI(
@@ -30,10 +43,15 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS middleware
+# CORS middleware - Allow frontend from environment variable
+allowed_origins = [
+    "http://localhost:5173",  # Local development
+    os.getenv("FRONTEND_URL", "http://localhost:5173")  # Production frontend
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite default port
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -51,10 +69,12 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Detailed health check"""
+    db_status = await get_db_status()
+    
     return {
-        "status": "healthy",
-        "database": "connected",  # TODO: Actual DB check
-        "ai_models": "loaded"      # TODO: Actual model check
+        "status": "healthy" if db_status["status"] == "connected" else "degraded",
+        "database": db_status,
+        "ai_models": "not_loaded"  # TODO: Actual model check
     }
 
 # TODO: Include routers

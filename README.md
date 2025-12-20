@@ -160,6 +160,27 @@ Brain_tech/
 - Hugging Face (transformers, diffusers)
 - MNE-Python (EEG processing)
 
+## 🌐 Deployment
+
+The application is ready to deploy with:
+- **Frontend**: Netlify (free tier)
+- **Backend**: Render (free tier)
+
+### Quick Start
+
+1. **Deploy Backend** (Render):
+   - Connect your GitHub repo to Render
+   - Use the `render.yaml` blueprint for automatic configuration
+   - Set environment variables (see `backend/.env.example`)
+
+2. **Deploy Frontend** (Netlify):
+   - Connect your GitHub repo to Netlify
+   - Configuration auto-detected from `netlify.toml`
+   - Set `VITE_API_URL` to your Render backend URL
+
+📖 **Full deployment guide**: See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed step-by-step instructions.
+
+
 ## 📚 Documentation
 
 - **[Research Foundation](./RESEARCH_FOUNDATION.md)**: Comprehensive neuroscience & AI research
