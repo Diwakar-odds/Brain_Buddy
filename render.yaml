@@ -39,8 +39,7 @@ services:
         value: 0.0.0.0
       
       - key: API_PORT
-        sync: false
-        value: 10000  # Render's default port
+        value: 10000  # Render uses $PORT automatically, this is for local reference
       
       - key: LOG_LEVEL
         value: INFO
@@ -57,7 +56,7 @@ services:
       # 2. Click "Connect" -> "Connect your application"
       # 3. Copy connection string and add it here
       - key: MONGODB_URL
-        value: mongodb+srv://Brain_Buddy_admin:5Df3YoSHLZqTpCOI@brainbuddy.4sck8ko.mongodb.net/?appName=BrainBuddy
+        value: mongodb+srv://Brain_Buddy_admin:5Df3YoSHLZqTpCOI@brainbuddy.4sck8ko.mongodb.net/brain_buddy?retryWrites=true&w=majority&appName=BrainBuddy
         # ⚠️ IMPORTANT: Replace with your actual MongoDB Atlas connection string!
       
       # Redis - Optional, comment out if not using
