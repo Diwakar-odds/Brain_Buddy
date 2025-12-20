@@ -22,8 +22,6 @@
 6.  [Part V: Implementation Data Repository](#part-v-data)
 7.  [Part VI: The Build Protocol (Roadmap)](#part-vi-roadmap)
 8.  [Part VII: Project Structure & Environment](#part-vii-structure)
-9.  [Part VIII: Ethics, Privacy & Safety Protocols](#part-viii-ethics)
-10. [Epilogue: The Day One Mindset](#epilogue)
 
 ---
 
@@ -382,40 +380,6 @@ Brain_Buddy/
 *   `DATABASE_URL`: PostgreSQL connection string.
 *   `JWT_SECRET`: For user session security.
 *   `HUGGINGFACE_TOKEN`: For downloading local models (MusicVAE).
-
----
-
-## 9. Part VIII: Ethics, Privacy & Safety Protocols <a name="part-viii-ethics"></a>
-
-### 8.1 Cognitive Liberty & Data Sovereignty
-Neural data (even indirect proxies like mood logs and reaction times) is the most sensitive data class.
-*   **Local-First Architecture**: Whenever possible, the AI (LLM/Audio) runs on-device (Edge Computing).
-*   **Zero-Knowledge Storage**: Cloud backups must be end-to-end encrypted. The server should not "know" what the user is thinking.
-
-### 8.2 The "Do No Harm" Override (Safety Rails)
-*   **Binaural Limits**: Frequencies must not exceed safe volumes or induce known epileptic triggers (e.g., specific flashing rates in visualizers).
-*   **Psychological Safety**: The LLM prompt chain must have a "Safety Layer" to reject generating scripts that encourage self-harm, extreme anxiety, or dissociation.
-
-### 8.3 Dependency Mitigation
-The paradox of a good brain-training app is that it should eventually make itself obsolete.
-*   **The Graduation Metric**: We track how well the user performs *without* the app.
-*   **Weaning Protocols**: As the user improves, the app reduces guidance (fading cues), forcing the user's internal biology to take over.
-
----
-
-## 10. Epilogue: The Day One Mindset <a name="epilogue"></a>
-
-We have defined the hardware (Neuroscience).
-We have defined the software (AI Architecture).
-We have defined the application (The Modules).
-We have defined the build plan (The Roadmap).
-
-The "Deep Research" phase is complete. The theory is sound. The architecture is robust.
-Now, the abstraction ends. The compilation begins.
-
-**"The best way to predict the future is to invent it."** - Alan Kay
-
-*Proceed to Phase 1: The Static Mirror.*
 
 ---
 
