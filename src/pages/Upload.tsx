@@ -47,40 +47,33 @@ export function Upload() {
     try {
       const duration = Math.random() * 180 + 30;
 
-  // TODO: Replace with alternative session fetch logic
-        .from('sessions')
-        .insert({
-          user_id: user.id,
-          session_type: 'upload',
-          target_state: 'focus',
-          duration: Math.floor(duration),
-          status: 'active',
-        })
-        .select()
-        .single();
+      // Mock session - replace with actual API call
+      const session = {
+        id: Date.now().toString(),
+        user_id: user.email,
+        session_type: 'upload',
+        target_state: 'focus',
+        duration: Math.floor(duration),
+        status: 'active',
+      };
 
-      if (sessionError) throw sessionError;
-
-  // TODO: Replace with alternative recording fetch logic
-        .from('recordings')
-        .insert({
-          user_id: user.id,
-          session_id: session.id,
-          recording_type: selectedType,
-          duration,
-          sample_rate: 44100,
-          metadata: { filename: file.name },
-        })
-        .select()
-        .single();
-
-      if (recordingError) throw recordingError;
+      // Mock recording - replace with actual API call
+      const recording = {
+        id: Date.now().toString(),
+        user_id: user.email,
+        session_id: session.id,
+        recording_type: selectedType,
+        duration,
+        sample_rate: 44100,
+        metadata: { filename: file.name },
+      };
 
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const audioFeatures = extractAudioFeatures(duration);
 
-  // TODO: Replace with alternative audio_features insert logic
+      // Mock audio features save
+      console.log('Audio features:', {
         recording_id: recording.id,
         tempo: audioFeatures.tempo,
         key: audioFeatures.key,
@@ -94,7 +87,8 @@ export function Upload() {
 
       const brainwaves = simulateBrainwaveAnalysis(audioFeatures);
 
-  // TODO: Replace with alternative eeg_bands insert logic
+      // Mock brainwave data save
+      console.log('Brainwaves:', {
         recording_id: recording.id,
         session_id: session.id,
         delta: brainwaves.delta,
@@ -118,7 +112,8 @@ export function Upload() {
 
       const predictedEmotion = emotionMap[dominantBand[0]];
 
-  // TODO: Replace with alternative predictions insert logic
+      // Mock predictions save
+      console.log('Predictions:', {
         session_id: session.id,
         recording_id: recording.id,
         predicted_state: dominantBand[0],
@@ -129,10 +124,12 @@ export function Upload() {
         features_used: { audio_features: true, brainwaves: true },
       });
 
-      await supabase
-        .from('sessions')
-        .update({ status: 'completed', completed_at: new Date().toISOString() })
-        .eq('id', session.id);
+      // Mock session completion
+      console.log('Session completed:', { 
+        id: session.id, 
+        status: 'completed', 
+        completed_at: new Date().toISOString() 
+      });
 
       setAnalysisResult({
         brainwaves,

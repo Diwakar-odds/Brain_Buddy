@@ -31,23 +31,20 @@ export function Dashboard() {
     if (!user) return;
 
     try {
-  // TODO: Replace with alternative data fetch for sessions
-        .from('sessions')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('started_at', { ascending: false })
-        .limit(10);
-
-  // TODO: Replace with alternative data fetch for feedback
-        .from('feedback')
-        .select('rating, effectiveness')
-        .eq('user_id', user.id);
-
-  // TODO: Replace with alternative data fetch for eegData
-        .from('eeg_bands')
-        .select('*')
-        .order('timestamp', { ascending: false })
-        .limit(5);
+      // Mock data - replace with actual API calls to backend when ready
+      const sessions = [
+        { id: '1', duration: 600, started_at: new Date().toISOString() },
+        { id: '2', duration: 900, started_at: new Date(Date.now() - 86400000).toISOString() },
+      ];
+      
+      const feedback = [
+        { rating: 4, effectiveness: 0.8 },
+        { rating: 5, effectiveness: 0.9 },
+      ];
+      
+      const eegData = [
+        { delta: 0.2, theta: 0.3, alpha: 0.4, beta: 0.5, gamma: 0.1, timestamp: new Date().toISOString() },
+      ];
 
       const totalDuration = sessions?.reduce((acc, s) => acc + (s.duration || 0), 0) || 0;
       const avgRating = feedback?.length

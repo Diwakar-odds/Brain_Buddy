@@ -37,27 +37,23 @@ export function Feedback() {
     if (!user) return;
 
     try {
-  // TODO: Replace with alternative data fetch for sessions
-        .from('sessions')
-        .select('*, generated_music(*)')
-        .eq('user_id', user.id)
-        .eq('status', 'completed')
-        .order('completed_at', { ascending: false })
-        .limit(10);
+      // Mock sessions - replace with actual API call
+      const sessions = [
+        {
+          id: '1',
+          user_id: user.email,
+          status: 'completed',
+          target_state: 'focus',
+          duration: 600,
+          completed_at: new Date().toISOString(),
+          generated_music: [{ id: 'm1', parameters: {} }],
+        },
+      ];
 
-      if (error) throw error;
-
-      const sessionsWithFeedback = await Promise.all(
-        (sessions || []).map(async (session) => {
-          // TODO: Replace with alternative data fetch for feedback
-            .from('feedback')
-            .select('*')
-            .eq('session_id', session.id)
-            .maybeSingle();
-
-          return { ...session, has_feedback: !!feedback };
-        })
-      );
+      const sessionsWithFeedback = sessions.map((session) => ({
+        ...session,
+        has_feedback: false,
+      }));
 
       setRecentSessions(sessionsWithFeedback);
     } catch (error) {
@@ -80,8 +76,9 @@ export function Feedback() {
     try {
       const musicId = selectedSession.generated_music?.[0]?.id;
 
-  // TODO: Replace with alternative feedback insert logic
-        user_id: user.id,
+      // Mock feedback submission - replace with actual API call
+      console.log('Feedback submitted:', {
+        user_id: user.email,
         session_id: selectedSession.id,
         music_id: musicId,
         rating,
@@ -92,8 +89,6 @@ export function Feedback() {
         calmness_level: calmnessLevel,
         comments,
       });
-
-      if (error) throw error;
 
       alert('Feedback submitted successfully!');
       resetForm();

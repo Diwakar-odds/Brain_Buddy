@@ -35,34 +35,25 @@ export function Training() {
       const music = generateAdaptiveMusic(selectedState);
       setMusicParams(music);
 
-  // TODO: Replace with alternative session fetch logic
-        .from('sessions')
-        .insert({
-          user_id: user.id,
-          session_type: 'training',
-          target_state: selectedState,
-          status: 'active',
-          metadata: { music_params: music },
-        })
-        .select()
-        .single();
+      // Mock session - replace with actual API call when backend is ready
+      const session = {
+        id: Date.now().toString(),
+        user_id: user.email,
+        session_type: 'training',
+        target_state: selectedState,
+        status: 'active',
+        metadata: { music_params: music },
+      };
 
-      if (error) throw error;
-
-  // TODO: Replace with alternative music generation logic
-        .from('generated_music')
-        .insert({
-          user_id: user.id,
-          session_id: session.id,
-          target_state: selectedState,
-          duration: 0,
-          parameters: music,
-          model_version: 'v1.0',
-        })
-        .select()
-        .single();
-
-      if (musicError) throw musicError;
+      const generatedMusic = {
+        id: Date.now().toString(),
+        user_id: user.email,
+        session_id: session.id,
+        target_state: selectedState,
+        duration: 0,
+        parameters: music,
+        model_version: 'v1.0',
+      };
 
       setCurrentSession({ ...session, music_id: generatedMusic.id });
       setIsPlaying(true);
@@ -82,22 +73,22 @@ export function Training() {
     setIsPlaying(false);
 
     try {
-  // TODO: Replace with alternative data update logic
-        .from('sessions')
-        .update({
-          duration,
-          status: 'completed',
-          completed_at: new Date().toISOString(),
-        })
-        .eq('id', currentSession.id);
+      // Mock session update - replace with actual API call when backend is ready
+      console.log('Session completed:', {
+        id: currentSession.id,
+        duration,
+        status: 'completed',
+        completed_at: new Date().toISOString(),
+      });
 
-      await supabase
-        .from('generated_music')
-        .update({ duration })
-        .eq('id', currentSession.music_id);
+      console.log('Music updated:', {
+        id: currentSession.music_id,
+        duration,
+      });
 
       if (realTimeBrainwaves) {
-  // TODO: Replace with alternative eeg_bands insert logic
+        // Mock EEG data save - replace with actual API call
+        console.log('EEG data:', {
           session_id: currentSession.id,
           delta: realTimeBrainwaves.delta,
           theta: realTimeBrainwaves.theta,
