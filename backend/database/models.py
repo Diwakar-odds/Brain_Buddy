@@ -1,119 +1,187 @@
 """
-Database Configuration
-SQLAlchemy models and database setup
+Database Configuration for MongoDB
+Beanie ODM models and database setup
 """
 
-from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime, JSON, ForeignKey, Boolean
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
+from beanie import Document, Link, init_beanie
+from pydantic import Field, EmailStr
+from typing import Optional, List, Dict, Any
 from datetime import datetime
+from motor.motor_asyncio import AsyncIOMotorClient
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Database URL from environment
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://localhost/brain_buddy")
+# MongoDB URL from environment
+MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
+DATABASE_NAME = "brain_buddy"
 
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+# Global client variable
+mongo_client: Optional[AsyncIOMotorClient] = None
 
 
 # Models
 
-class User(Base):
+class User(Document):
     """User account"""
-    __tablename__ = "users"
+    email: EmailStr = Field(unique=True)
+    hashed_password: str
+    chronotype: Optional[str] = None  # lion, bear, wolf, dolphin
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    privacy_settings: Dict[str, Any] = Field(default_factory=dict)
     
-    id = Column(String, primary_key=True)
-    email = Column(String, unique=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
-    chronotype = Column(String)  # lion, bear, wolf, dolphin
-    created_at = Column(DateTime, default=datetime.utcnow)
-    privacy_settings = Column(JSON, default={})
-    
-    # Relationships
-    sessions = relationship("TrainingSession", back_populates="user")
-    model_weights = relationship("UserModel", back_populates="user", uselist=False)
+    class Settings:
+        name = "users"
+        indexes = [
+            "email",
+        ]
 
 
-class TrainingSession(Base):
+class TrainingSession(Document):
     """Individual training session"""
-    __tablename__ = "sessions"
+    user_id: str  # Reference to User
+    module_type: str  # movers, pfc_gym, mental_rehearsal, brainwave
+    brainwave_target: Optional[str] = None  # alpha, beta, theta, delta, gamma
+    generated_content: Dict[str, Any] = Field(default_factory=dict)  # Music parameters, script, etc.
+    user_rating: Optional[int] = None  # 1-5
+    effectiveness_score: Optional[float] = None  # 0-1
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    duration_seconds: Optional[int] = None
     
-    id = Column(String, primary_key=True)
-    user_id = Column(String, ForeignKey("users.id"))
-    module_type = Column(String)  # movers, pfc_gym, mental_rehearsal, brainwave
-    brainwave_target = Column(String)  # alpha, beta, theta, delta, gamma
-    generated_content = Column(JSON)  # Music parameters, script, etc.
-    user_rating = Column(Integer)  # 1-5
-    effectiveness_score = Column(Float)  # 0-1
-    timestamp = Column(DateTime, default=datetime.utcnow)
-    duration_seconds = Column(Integer)
-    
-    # Relationships
-    user = relationship("User", back_populates="sessions")
+    class Settings:
+        name = "sessions"
+        indexes = [
+            "user_id",
+            "module_type",
+            "timestamp",
+        ]
 
 
-class BrainKnowledge(Base):
+class BrainKnowledge(Document):
     """Scientific knowledge base"""
-    __tablename__ = "brain_knowledge"
+    stimulus_type: str  # binaural_beats, visualization, breathwork
+    stimulus_parameters: Dict[str, Any] = Field(default_factory=dict)
+    outcome: str  # increased_focus, reduced_anxiety
+    evidence_strength: float  # 0-1 from meta-analysis
+    citations: List[Dict[str, str]] = Field(default_factory=list)  # Array of paper references
+    created_at: datetime = Field(default_factory=datetime.utcnow)
     
-    id = Column(String, primary_key=True)
-    stimulus_type = Column(String)  # binaural_beats, visualization, breathwork
-    stimulus_parameters = Column(JSON)
-    outcome = Column(String)  # increased_focus, reduced_anxiety
-    evidence_strength = Column(Float)  # 0-1 from meta-analysis
-    citations = Column(JSON)  # Array of paper references
-    created_at = Column(DateTime, default=datetime.utcnow)
+    class Settings:
+        name = "brain_knowledge"
+        indexes = [
+            "stimulus_type",
+            "outcome",
+        ]
 
 
-class UserModel(Base):
+class UserModel(Document):
     """User's personalized AI model weights (encrypted)"""
-    __tablename__ = "user_models"
+    user_id: str = Field(unique=True)  # Reference to User
+    model_weights: str  # Encrypted blob or file path
+    last_updated: datetime = Field(default_factory=datetime.utcnow)
+    training_steps: int = Field(default=0)
+    phase: str = Field(default="developmental")  # developmental or adaptive
     
-    user_id = Column(String, ForeignKey("users.id"), primary_key=True)
-    model_weights = Column(String)  # Encrypted blob or file path
-    last_updated = Column(DateTime, default=datetime.utcnow)
-    training_steps = Column(Integer, default=0)
-    phase = Column(String, default="developmental")  # developmental or adaptive
-    
-    # Relationships
-    user = relationship("User", back_populates="model_weights")
+    class Settings:
+        name = "user_models"
+        indexes = [
+            "user_id",
+        ]
 
 
-class Habit(Base):
+class Habit(Document):
     """User's habit tracking for PFC Gym"""
-    __tablename__ = "habits"
+    user_id: str  # Reference to User
+    habit_type: str  # negative_loop, positive_routine
+    trigger: str
+    routine: str
+    reward: str
+    interrupt_protocol: Dict[str, Any] = Field(default_factory=dict)
+    success_count: int = Field(default=0)
+    attempt_count: int = Field(default=0)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
     
-    id = Column(String, primary_key=True)
-    user_id = Column(String, ForeignKey("users.id"))
-    habit_type = Column(String)  # negative_loop, positive_routine
-    trigger = Column(String)
-    routine = Column(String)
-    reward = Column(String)
-    interrupt_protocol = Column(JSON)
-    success_count = Column(Integer, default=0)
-    attempt_count = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    class Settings:
+        name = "habits"
+        indexes = [
+            "user_id",
+            "habit_type",
+        ]
 
 
-# Database initialization
-def init_db():
-    """Create all tables"""
-    Base.metadata.create_all(bind=engine)
-    print("✅ Database tables created")
+# Database initialization functions
 
-
-def get_db():
-    """Dependency for FastAPI routes"""
-    db = SessionLocal()
+async def init_db():
+    """Initialize MongoDB connection and Beanie"""
+    global mongo_client
+    
     try:
-        yield db
-    finally:
-        db.close()
+        # Create Motor client
+        mongo_client = AsyncIOMotorClient(MONGODB_URL)
+        
+        # Get database
+        database = mongo_client[DATABASE_NAME]
+        
+        # Initialize Beanie with document models
+        await init_beanie(
+            database=database,
+            document_models=[
+                User,
+                TrainingSession,
+                BrainKnowledge,
+                UserModel,
+                Habit,
+            ]
+        )
+        
+        print(f"✅ Connected to MongoDB: {DATABASE_NAME}")
+        print(f"✅ Initialized Beanie with {len([User, TrainingSession, BrainKnowledge, UserModel, Habit])} document models")
+        
+    except Exception as e:
+        print(f"❌ Error connecting to MongoDB: {e}")
+        raise
+
+
+async def close_db():
+    """Close MongoDB connection"""
+    global mongo_client
+    
+    if mongo_client:
+        mongo_client.close()
+        print("✅ MongoDB connection closed")
+
+
+async def get_db_status() -> Dict[str, Any]:
+    """Get database connection status"""
+    global mongo_client
+    
+    if not mongo_client:
+        return {"status": "disconnected", "database": None}
+    
+    try:
+        # Ping the database
+        await mongo_client.admin.command('ping')
+        return {
+            "status": "connected",
+            "database": DATABASE_NAME,
+            "url": MONGODB_URL.split('@')[-1] if '@' in MONGODB_URL else "localhost"
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": str(e)
+        }
 
 
 if __name__ == "__main__":
-    init_db()
+    import asyncio
+    
+    async def test_connection():
+        """Test MongoDB connection"""
+        await init_db()
+        status = await get_db_status()
+        print(f"Database status: {status}")
+        await close_db()
+    
+    asyncio.run(test_connection())
